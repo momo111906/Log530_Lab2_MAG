@@ -40,6 +40,11 @@ public class Player extends Unit {
     private Unit killer;
 
     /**
+     * The number of lives remaining.
+     */
+    private int lives;
+
+     /**
      * Creates a new player with a score of 0 points.
      *
      * @param spriteMap
@@ -53,6 +58,16 @@ public class Player extends Unit {
         this.sprites = spriteMap;
         this.deathSprite = deathAnimation;
         deathSprite.setAnimating(false);
+        this.lives = 3;
+    }
+
+    /**
+     * Returns the number of lives the player has left.
+     *
+     * @return The remaining lives.
+     */
+    public int getLives() {
+        return lives;
     }
 
     /**
@@ -62,6 +77,25 @@ public class Player extends Unit {
      */
     public boolean isAlive() {
         return alive;
+    }
+
+    /**
+     * Applies damage to the player. If the player still has extra lives,
+     * only decrement the life counter. Otherwise, mark the player as dead.
+     *
+     * @param killer The unit that caused the damage.
+     */
+    public void takeDamage(Unit killer) {
+        if (!isAlive()) {
+            return;
+        }
+        if (lives > 1) {
+            lives--;
+        } else {
+            lives--;
+            setAlive(false);
+            setKiller(killer);
+        }
     }
 
     /**

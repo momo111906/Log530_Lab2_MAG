@@ -66,7 +66,8 @@ public class PlayerCollisions implements CollisionMap {
 
 
     /**
-     * Actual case of player bumping into ghost or vice versa.
+     * Actual case of player bumping into ghost or vice versa. Instead of immediately
+     * killing the player, the player takes damage (and loses a life).
      *
      * @param player
      *          The player involved in the collision.
@@ -75,8 +76,7 @@ public class PlayerCollisions implements CollisionMap {
      */
     public void playerVersusGhost(Player player, Ghost ghost) {
         pointCalculator.collidedWithAGhost(player, ghost);
-        player.setAlive(false);
-        player.setKiller(ghost);
+        player.takeDamage(ghost);
     }
 
     /**
